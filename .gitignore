@@ -1,0 +1,14 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.db
+*.sqlite
+*.sqlite3
+generated_certificates/*.pdf
+generated_certificates/*.zip
+generated_certificates/*/
+.env
+.env.*
+!.env.example

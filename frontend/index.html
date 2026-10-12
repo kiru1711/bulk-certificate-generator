@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fa">
+  <title>Certificate Studio</title>
+  <link rel="stylesheet" href="/frontend/style.css">
+  <script src="/frontend/script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Certificate Studio home">
+      <span class="brand-mark" aria-hidden="true">C</span>
+      <span>Certificate Studio</span>
+    </a>
+    <a class="docs-link" href="/docs">API docs <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main class="page-shell">
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">BULK CERTIFICATE GENERATOR</p>
+      <h1 id="page-title">Make every achievement count.</h1>
+      <p class="intro-copy">Create personalized certificates for your whole group in one simple batch.</p>
+    </section>
+
+    <form id="job-form" class="workspace" novalidate>
+      <section class="panel details-panel" aria-labelledby="details-heading">
+        <div class="section-heading">
+          <div class="step">01</div>
+          <div><h2 id="details-heading">Certificate details</h2><p>These details appear on every certificate.</p></div>
+        </div>
+        <div class="field-grid">
+          <label class="field field-wide" for="certificate-title">Certificate title
+            <input id="certificate-title" name="certificate_title" required maxlength="200" value="Certificate of Completion" placeholder="e.g. Certificate of Completion">
+          </label>
+          <label class="field" for="event-name">Event or course
+            <input id="event-name" name="event_name" required maxlength="200" placeholder="e.g. Python Workshop">
+          </label>
+          <label class="field" for="issuer-name">Issuing organization
+            <input id="issuer-name" name="issuer_name" required maxlength="200" placeholder="e.g. ABC Organization">
+          </label>
+          <label class="field" for="issue-date">Issue date
+            <input id="issue-date" name="issue_date" type="date" required>
+          </label>
+        </div>
+      </section>
+
+      <section class="panel recipients-panel" aria-labelledby="recipients-heading">
+        <div class="section-heading section-heading-row">
+          <div class="step">02</div>
+          <div class="heading-copy"><h2 id="recipients-heading">Recipients</h2><p>Add up to 500 people to this batch.</p></div>
+          <button type="button" class="button button-secondary add-button" id="add-recipient">＋ <span>Add recipient</span></button>
+        </div>
+        <div class="recipient-labels" aria-hidden="true"><span>FULL NAME</span><span>EMAIL ADDRESS <em>OPTIONAL</em></span><span></span></div>
+        <div id="recipient-list" class="recipient-list" aria-live="polite"></div>
+        <p class="field-hint">A recipient with a blank name or invalid email will be marked as failed; other certificates will continue generating.</p>
+      </section>
+
+      <div id="form-error" class="notice notice-error" role="alert" hidden></div>
+      <div class="submit-row">
+        <p><span class="secure-dot" aria-hidden="true"></span> Your batch is processed locally by this service.</p>
+        <button type="submit" id="submit-job" class="button button-primary"><span>Generate certificates</span><span aria-hidden="true">→</span></button>
+      </div>
+    </form>
+
+    <section id="job-panel" class="panel job-panel" aria-labelledby="job-heading" hidden>
+      <div class="section-heading section-heading-row job-top">
+        <div class="step step-green">03</div>
+        <div class="heading-copy"><h2 id="job-heading">Generation progress</h2><p id="job-id-label">Job ID: <code id="job-id"></code></p></div>
+        <span id="job-status" class="status-pill status-pending">Queued</span>
+      </div>
+      <div class="progress-copy"><span id="progress-label">Preparing your certificates</span><span id="progress-value">0%</span></div>
+      <div class="progress-track" role="progressbar" aria-label="Certificate generation progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progress-fill" class="progress-fill"></div></div>
+      <div class="stats-grid" aria-label="Job totals">
+        <div class="stat"><span>Total recipients</span><strong id="total-count">0</strong></div>
+        <div class="stat stat-success"><span>Successful</span><strong id="success-count">0</strong></div>
+        <div class="stat stat-failed"><span>Failed</span><strong id="failed-count">0</strong></div>
+      </div>
+      <div id="job-message" class="notice" role="status" hidden></div>
+      <div class="results-header"><div><h3>Recipient results</h3><p>Download each successful certificate below.</p></div><a id="zip-download" class="button button-secondary zip-button" hidden>↓ <span>Download all (.zip)</span></a></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">RECIPIENT</th><th scope="col">STATUS</th><th scope="col">DETAILS</th><th scope="col" class="download-heading">DOWNLOAD</th></tr></thead>
+          <tbody id="results-body"></tbody>
+        </table>
+      </div>
+    </section>
+    <footer><span>Simple tools for meaningful milestones.</span><span><a href="/docs">API documentation</a></span></footer>
+  </main>
+</body>
+</html>
